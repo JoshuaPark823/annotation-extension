@@ -1,0 +1,18 @@
+{
+    "manifest_version" : 2,
+    "name" : "annotation-extension", 
+    "description" : "Tracks annotations for Blue Annotation Tool",
+    "version" : "1.0", 
+    "background" : {
+        "scripts" : ["./background.js"]
+    },
+    "options_page" : "./options.html", 
+    "browser_action" : {
+        "default_icon" : "assets/icon.png", 
+        "default_popup" : "popup.html"
+    },
+    "permissions" : [
+        "tabs",
+        "https://ml-annotation-app.azurewebsites.net/annotation"
+    ]
+}
