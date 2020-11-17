@@ -8,3 +8,6 @@
 - Start : (the beginning number of tags of the annotator's work block)
 - Close : (the closing number of tags of the annotator's work block) 
 - Difference : (the number of tags applied by the annotator during the current work block)
+
+### Notes
+- So basically the background.js script monitors what the user is doing and injects the foreground script appropriately.
