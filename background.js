@@ -17,7 +17,8 @@ chrome.tabs.onActivated.addListener(tab => {
              * arg_1 : file is the foreground.js script we want to inject
              * arg_2 : callback function, says injection completed
              */
-            chrome.tabs.executeScript(null, {file : "./foreground.js"}, () => console.log("Injection complete"));
+            chrome.tabs.executeScript(null, {file : "./jquery-3.5.1.js"}, () => console.log("jquery injected"));
+            chrome.tabs.executeScript(null, {file : "./foreground.js"}, () => console.log("foreground injected"));
         }
     });
 });

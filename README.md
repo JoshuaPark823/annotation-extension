@@ -16,3 +16,8 @@
 
 ### Notes
 - So basically the background.js script monitors what the user is doing and injects the foreground script appropriately.
+
+### Issues 
+- prev_next variable that gets the button HTML element is being redefined everytime the annotation tab becomes the active tab.
+- Event listener on the buttons is being calledm multiple times for some reason.
+
