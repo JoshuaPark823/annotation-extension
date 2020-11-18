@@ -19,5 +19,7 @@
 
 ### Issues 
 - prev_next variable that gets the button HTML element is being redefined everytime the annotation tab becomes the active tab.
-- Event listener on the buttons is being calledm multiple times for some reason.
+- Event listener on the buttons is being called multiple times for some reason.
+
+    - Event listener is being called once, then twice, then 4 times, etc. The number of event listeners on the button doubled each time. Think I need to fix the top issue for this.
 
