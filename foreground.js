@@ -11,11 +11,22 @@ console.log("from foreground");
  * If you press previous, the above count is still correct, but updates pretty slowly.
  */
 
-// Set a variable that points to both buttons, [0] := previous, [1] := next
-const prev_next = document.getElementsByClassName("mat-focus-indicator sentence-button mat-icon-button mat-button-base");
+// Init the flag to check for double-activation
+var flag = true;
 
-const title_element = document.getElementsByClassName("title");
-var title_string = title_element[0].innerText;
+var prev_next;
+var title_element;
+var title_string;
+
+if (flag) {
+    // Set a variable that points to both buttons, [0] := previous, [1] := next
+    prev_next = document.getElementsByClassName("mat-focus-indicator sentence-button mat-icon-button mat-button-base");
+    title_element = document.getElementsByClassName("title");
+    title_string = title_element[0].innerText;
+
+    // Set the flag as false so we don't re-enter the loop
+    flag = false;
+}
 
 /**
  * @param: none

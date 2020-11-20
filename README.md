@@ -18,8 +18,9 @@
 - So basically the background.js script monitors what the user is doing and injects the foreground script appropriately.
 
 ### Issues 
-- prev_next variable that gets the button HTML element is being redefined everytime the annotation tab becomes the active tab.
-- Event listener on the buttons is being called multiple times for some reason.
-
+1. prev_next variable that gets the button HTML element is being redefined everytime the annotation tab becomes the active tab.
+2. Event listener on the buttons is being called multiple times for some reason.
     - Event listener is being called once, then twice, then 4 times, etc. The number of event listeners on the button doubled each time. Think I need to fix the top issue for this.
 
+### Solutions
+1. Variables are all declared but not initialized. A flag is set to true immediately upon injection of the foreground script, then switched to false after initializing all of the variables.
