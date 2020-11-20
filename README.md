@@ -21,6 +21,8 @@
 1. prev_next variable that gets the button HTML element is being redefined everytime the annotation tab becomes the active tab.
 2. Event listener on the buttons is being called multiple times for some reason.
     - Event listener is being called once, then twice, then 4 times, etc. The number of event listeners on the button doubled each time. Think I need to fix the top issue for this.
+    - NOTE: Everytime you click off the tab and click back on, the script gets re-injected thus doubling the number of event listeners.
 
 ### Solutions
-1. Variables are all declared but not initialized. A flag is set to true immediately upon injection of the foreground script, then switched to false after initializing all of the variables.
+1. Boolean flag in background script, turns false immediately after injecting foreground script once.
+2. Boolean flag that only injects the script once actually fixed the problem.
