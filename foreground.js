@@ -11,6 +11,9 @@ console.log("from foreground");
  * If you press previous, the above count is still correct, but updates pretty slowly.
  */
 
+var count = 0; // initialize the count as 0
+console.log(count);
+
 var prev_next; // Set a variable that points to both buttons, [0] := previous, [1] := next
 var title_element; // Title element
 var title_string; // Enclosing string
@@ -24,23 +27,40 @@ title_string = title_element[0].textContent; //instead of innerText
  * @return: returns the current number of tags applied as an integer
  */
 function current_amount() {
-    // add a wait (if for previous)
-    console.log(Number(title_string.substring(21,22)));
-    console.log("I've been clicked");
-    // return Number(title_string.substring(21,22)); // returns the initial amount 
+    return Number(title_string.substring(21,22)); // returns the initial amount 
 }
 
-// prev_next[0] = prev button, add on click event listener
-prev_next[0].addEventListener('click', () => {
-    current_amount();
-});
+
 
 // prev_next[1] = next button, add on click event listener
 prev_next[1].addEventListener('click', function(e) {
-    current_amount();
+
+    let init = 0; // because we know the user is on a new sentence, set the init as 0
+    let tags_applied = 0;
+
+    var target = document.querySelector(".title");
+    var observer = new MutationObserver(function(mutations) {
+        console.log("element changed");
+    });
+
+    // configuration of the observer:
+    var config = { attributes: true, childList: true, characterData: true };
+
+    // pass in the target node, as well as the observer options
+    observer.observe(target, config);
+
+    count += Number(tags_applied - init); // increment by the number added
+    console.log(count);
 });
 
 
+
+
+// prev_next[0] = prev button, add on click event listener
+prev_next[0].addEventListener('click', () => {
+
+    current_amount();
+});
 
 
 

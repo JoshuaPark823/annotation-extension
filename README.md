@@ -20,8 +20,8 @@
 ### Issues 
 1. prev_next variable that gets the button HTML element is being redefined everytime the annotation tab becomes the active tab.
 2. Event listener on the buttons is being called multiple times for some reason.
-    - Event listener is being called once, then twice, then 4 times, etc. The number of event listeners on the button doubled each time. Think I need to fix the top issue for this.
     - NOTE: Everytime you click off the tab and click back on, the script gets re-injected thus doubling the number of event listeners.
+3. (Current) How to check if DOM element has changed before calling calc function
 
 ### Solutions
 1. Boolean flag in background script, turns false immediately after injecting foreground script once.
