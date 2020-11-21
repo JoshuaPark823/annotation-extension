@@ -12,53 +12,61 @@ console.log("from foreground");
  */
 
 var count = 0; // initialize the count as 0
-console.log(count);
-
 var prev_next; // Set a variable that points to both buttons, [0] := previous, [1] := next
 var title_element; // Title element
 var title_string; // Enclosing string
 
+var init = 0; // init as 0
+var tags_applied = 0; // current number of tags applied (updates anytime the DOM subtree is modified)
+
 prev_next = document.getElementsByClassName("mat-focus-indicator sentence-button mat-icon-button mat-button-base");
 title_element = document.getElementsByClassName("title");
-title_string = title_element[0].textContent; //instead of innerText
 
 /**
  * @param: none
  * @return: returns the current number of tags applied as an integer
  */
 function current_amount() {
+
+    // set the value of the title string DYNAMICALLY
+    title_string = document.getElementsByClassName("title")[0].textContent;
+    
+    console.log("current_amount returned: " + title_string.substring(21,22));
     return Number(title_string.substring(21,22)); // returns the initial amount 
+
 }
 
+/**
+ * @param: none
+ * @return: void
+ * @function: updates the tags_applied variable whenever the DOM subtree is modified.
+ */
+// function update_amount() {
+    // add event listener onto the title, [0] cuz it returns a collection
+    title_element[0].addEventListener('DOMSubtreeModified', function() {
+        
+        tags_applied = current_amount(); //update the value of tags_applied
+        setTimeout(function() {
+            console.log("new number of tags is " + tags_applied);
+        }, 2000); //wait 100ms before returning
+    });
+// }
 
+// update_amount(); // add the event listener onto it
 
 // prev_next[1] = next button, add on click event listener
 prev_next[1].addEventListener('click', function(e) {
 
-    let init = 0; // because we know the user is on a new sentence, set the init as 0
-    let tags_applied = 0;
+    console.log("count before was " + count);
+    count += tags_applied; // increment by the number added
+    console.log("new count is " + count);
 
-    var target = document.querySelector(".title");
-    var observer = new MutationObserver(function(mutations) {
-        console.log("element changed");
-    });
-
-    // configuration of the observer:
-    var config = { attributes: true, childList: true, characterData: true };
-
-    // pass in the target node, as well as the observer options
-    observer.observe(target, config);
-
-    count += Number(tags_applied - init); // increment by the number added
-    console.log(count);
+    tags_applied = 0; // reset the number of tags applied back to 0
 });
-
-
 
 
 // prev_next[0] = prev button, add on click event listener
 prev_next[0].addEventListener('click', () => {
-
     current_amount();
 });
 
