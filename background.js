@@ -27,8 +27,6 @@ chrome.tabs.onActivated.addListener(tab => {
                 // set the flag as false after injecting the scripts
                 flag = false;
             }
-            
-
         }
     });
 });

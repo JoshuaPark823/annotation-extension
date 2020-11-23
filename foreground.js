@@ -1,29 +1,13 @@
-console.log("from foreground");
+console.log("Foreground Injected");
 
-/**
- * HTML Elements:
- * Previous button  : class="mat-focus-indicator sentence-button mat-icon-button mat-button-base"
- * Next button      : class="mat-focus-indicator sentence-button mat-icon-button mat-button-base"
- * Selected categories container : class="selected-categories"
- * 
- * There's literally a variable that's counting the number of selected categories and updates when the user +- one:
- * <div _ngcontent-thd-c60="" class="title">Selected Categories (2) : </div>
- * If you press previous, the above count is still correct, but updates pretty slowly.
- */
+// Set a variable that points to both buttons, [0] := previous, [1] := next
+var prev_next = document.getElementsByClassName("mat-focus-indicator sentence-button mat-icon-button mat-button-base");
 
 var count = 0; // initialize the count as 0
-var prev_next; // Set a variable that points to both buttons, [0] := previous, [1] := next
 var title_element; // Title element
 var title_string; // Enclosing string
-
 var init = 0; // init as 0
 var tags_applied = 0; // current number of tags applied (updates anytime the DOM subtree is modified)
-
-// set the number immediately upon running the script, so should be 0
-// var previous_state = document.getElementsByClassName("title")[0].textContent.substring(21,22);
-// console.log("previous state is: " + previous_state);
-
-prev_next = document.getElementsByClassName("mat-focus-indicator sentence-button mat-icon-button mat-button-base");
 
 /**
  * @param: none
@@ -39,47 +23,41 @@ function current_amount() {
 }
 
 /**
- * @param: none
- * @return: void
- * @function: updates the tags_applied variable whenever the DOM subtree is modified.
+ * DOM Subclass Event Listener (Count Logic)
  */
 document.getElementsByClassName("title")[0].addEventListener('DOMSubtreeModified', function() {
     
-    var tags_before = tags_applied; // set a variable to hold the previous state
-    console.log("tags before: " + tags_before);
-    console.log("count before: " + count);
+    var tags_before = tags_applied;
+    tags_applied = current_amount(); // set the new number of tags
+    console.log("c before " + count); // log the count, debug
 
-    // case: tags_before = 0, current = 3, applied = 3, count += 3
-    // case: tags_before = 2, current = 1 (removed 1), applied = -1, count += (-1)
-    tags_applied = (current_amount() - tags_before);
+    // t_b <= t_a, ie: user just added some tags, or changed to same # of tags
+    if (tags_before <= tags_applied) {
+        count += (tags_applied - tags_before);
+    }
 
-    // tags_applied = current_amount(); //update the value of tags_applied
+    // t_b > t_a, ie: user just removed some
+    else {
+        count -= (tags_before - tags_applied);
+    }
 
-    count += tags_applied;
+    console.log("c after " + count); // log the count, debug
     
-    console.log("count after: " + count);
-    console.log("tags after: " + tags_applied);
-
 });
 
-
-// prev_next[1] = next button, add on click event listener
+/**
+ * NEXT Event Listener
+ */
 prev_next[1].addEventListener('click', function(e) {
     console.log("the count after clicking next is: " + count);
 });
 
-
-// prev_next[0] = prev button, add on click event listener
+/**
+ * PREVIOUS Event Listener
+ */
 prev_next[0].addEventListener('click', () => {
     current_amount();
 });
-
-
-
-
-
-
-
 
 
 

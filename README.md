@@ -22,7 +22,6 @@
 2. Event listener on the buttons is being called multiple times for some reason.
     - NOTE: Everytime you click off the tab and click back on, the script gets re-injected thus doubling the number of event listeners.
 3. How to check if DOM element has changed before calling calc function
-4. (Current) Gonna update the count everytime the DOMsubtree is changed, figuring out the logic.
 
 ### Solutions
 1. Boolean flag in background script, turns false immediately after injecting foreground script once.
