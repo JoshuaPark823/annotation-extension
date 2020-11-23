@@ -20,8 +20,8 @@ var init = 0; // init as 0
 var tags_applied = 0; // current number of tags applied (updates anytime the DOM subtree is modified)
 
 // set the number immediately upon running the script, so should be 0
-var previous_state = document.getelementsByClassName("title")[0].textContent.substring(21,22);
-console.log("previous state is: " + previous_state);
+// var previous_state = document.getElementsByClassName("title")[0].textContent.substring(21,22);
+// console.log("previous state is: " + previous_state);
 
 prev_next = document.getElementsByClassName("mat-focus-indicator sentence-button mat-icon-button mat-button-base");
 
@@ -35,9 +35,7 @@ function current_amount() {
     title_element = document.getElementsByClassName("title");
     title_string = document.getElementsByClassName("title")[0].textContent;
     
-    console.log("current_amount returned: " + title_string.substring(21,22));
-    return Number(title_string.substring(21,22)); // returns the initial amount 
-
+    return Number(title_string.substring(21,22)); 
 }
 
 /**
@@ -46,18 +44,28 @@ function current_amount() {
  * @function: updates the tags_applied variable whenever the DOM subtree is modified.
  */
 document.getElementsByClassName("title")[0].addEventListener('DOMSubtreeModified', function() {
-        
-    console.log("tags before change are: " + tags_applied);
-    tags_applied = current_amount(); //update the value of tags_applied
-    console.log("updated tags are: " + tags_applied); 
+    
+    var tags_before = tags_applied; // set a variable to hold the previous state
+    console.log("tags before: " + tags_before);
+    console.log("count before: " + count);
+
+    // case: tags_before = 0, current = 3, applied = 3, count += 3
+    // case: tags_before = 2, current = 1 (removed 1), applied = -1, count += (-1)
+    tags_applied = (current_amount() - tags_before);
+
+    // tags_applied = current_amount(); //update the value of tags_applied
+
+    count += tags_applied;
+    
+    console.log("count after: " + count);
+    console.log("tags after: " + tags_applied);
+
 });
 
 
 // prev_next[1] = next button, add on click event listener
 prev_next[1].addEventListener('click', function(e) {
-    
-    
-
+    console.log("the count after clicking next is: " + count);
 });
 
 
