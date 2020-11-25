@@ -2,7 +2,6 @@ console.log("Foreground Injected");
 
 // Set a variable that points to both buttons, [0] := previous, [1] := next
 var prev_next = document.getElementsByClassName("mat-focus-indicator sentence-button mat-icon-button mat-button-base");
-
 var count = 0; // initialize a temp count variable to use with each sentence
 var flag = false; // checks if the previous button was pressed
 var count_prev = 0;
@@ -37,31 +36,20 @@ function display_count(count_input) {
  * DOM Subclass Event Listener (Count Logic)
  */
 document.getElementsByClassName("title")[0].addEventListener('DOMSubtreeModified', function() {
-    
+
     var tags_before = tags_applied;
     count_prev = count;
     tags_applied = current_amount(); // set the new number of tags
-    console.log("c before " + count); // log the count, debug
 
     // t_b <= t_a, ie: user just added some tags, or changed to same # of tags
     if (tags_before <= tags_applied) {
-
-        // increment by the difference
-        count += (tags_applied - tags_before);
-
+        count += (tags_applied - tags_before); // increment by the difference
     }
 
     // t_b > t_a, ie: user just removed some
     else {
-
-        // decrement by the difference
-        count -= (tags_before - tags_applied);
-
+        count -= (tags_before - tags_applied); // decrement by the difference
     }
-
-    // at this point the cb and ca are the ones I've been seeing in the console.
-
-    console.log("c after " + count); // log the count, debug
 });
 
 /**
@@ -76,8 +64,7 @@ prev_next[1].addEventListener('click', function(e) {
     total += count_prev;
 
     // display_count(total); // update the count on the popup to the new total
-
-    console.log("the total after clicking next is: " + total);
+    console.log("Updated Total: " + total);
 });
 
 /**
@@ -85,11 +72,10 @@ prev_next[1].addEventListener('click', function(e) {
  */
 prev_next[0].addEventListener('click', () => {
 
-    // Case: User applies 2 tags, clicks next, total = 2, then they go prev, removes 1, clicks next, it'll apply the 1 tag again
-    // so total = 3 when it should actually have subtracted the tag.
+    // Just "cancel"" the last tags from count if user goes back (n-miscount if user pressed previous, then didn't press next)
+    total -= count_prev;
 
-    // Set the flag to true, indicating that the previous button was just pressed
-    flag = true;
+    console.log("Updated Total: " + total);
 });
 
 
