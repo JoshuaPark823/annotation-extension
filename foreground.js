@@ -4,6 +4,7 @@ console.log("Foreground Injected");
 var prev_next = document.getElementsByClassName("mat-focus-indicator sentence-button mat-icon-button mat-button-base");
 
 var count = 0; // initialize a temp count variable to use with each sentence
+var flag = false; // checks if the previous button was pressed
 var count_prev = 0;
 var total = 0; // initialize a variable to hold the user total
 var title_element; // Title element
@@ -24,17 +25,12 @@ function current_amount() {
 }
 
 /**
+ * TODO: Implement method
  * @param count_input: new count for the popup to be updated to
  * @return: none
  */
 function display_count(count_input) {
-    var views = chrome.extension.getViews({
-        type: "popup"
-    });
 
-    for (var i = 0; i < views.length; i++) {
-        views[i].document.getElementById('display-count').innerHTML = count_input;
-    }
 }
 
 /**
@@ -49,13 +45,21 @@ document.getElementsByClassName("title")[0].addEventListener('DOMSubtreeModified
 
     // t_b <= t_a, ie: user just added some tags, or changed to same # of tags
     if (tags_before <= tags_applied) {
+
+        // increment by the difference
         count += (tags_applied - tags_before);
+
     }
 
     // t_b > t_a, ie: user just removed some
     else {
+
+        // decrement by the difference
         count -= (tags_before - tags_applied);
+
     }
+
+    // at this point the cb and ca are the ones I've been seeing in the console.
 
     console.log("c after " + count); // log the count, debug
 });
@@ -71,7 +75,7 @@ prev_next[1].addEventListener('click', function(e) {
     // There's probs a way to do this w the chrome.storage API but eh, this is faster
     total += count_prev;
 
-    display_count(total); // update the count on the popup to the new total
+    // display_count(total); // update the count on the popup to the new total
 
     console.log("the total after clicking next is: " + total);
 });
@@ -80,7 +84,12 @@ prev_next[1].addEventListener('click', function(e) {
  * PREVIOUS Event Listener
  */
 prev_next[0].addEventListener('click', () => {
-    current_amount();
+
+    // Case: User applies 2 tags, clicks next, total = 2, then they go prev, removes 1, clicks next, it'll apply the 1 tag again
+    // so total = 3 when it should actually have subtracted the tag.
+
+    // Set the flag to true, indicating that the previous button was just pressed
+    flag = true;
 });
 
 
