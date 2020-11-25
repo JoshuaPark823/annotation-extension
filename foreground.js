@@ -29,7 +29,7 @@ function current_amount() {
  * @return: none
  */
 function display_count(count_input) {
-
+    
 }
 
 /**
