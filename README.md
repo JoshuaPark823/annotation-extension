@@ -21,7 +21,7 @@
     - (Solution) Boolean flag in background script, turns false immediately after injecting foreground script once.
 
 2. Event listener on the buttons is being called multiple times for some reason.
-    - NOTE: Everytime you click off the tab and click back on, the script gets re-injected thus doubling the number of event listeners. \newline
+    - NOTE: Everytime you click off the tab and click back on, the script gets re-injected thus doubling the number of event listeners.
 
     - (Solution) Boolean flag that only injects the script once actually fixed the problem.
 
