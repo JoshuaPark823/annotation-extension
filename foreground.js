@@ -3,7 +3,6 @@ console.log("Foreground Injected");
 // Set a variable that points to both buttons, [0] := previous, [1] := next
 var prev_next = document.getElementsByClassName("mat-focus-indicator sentence-button mat-icon-button mat-button-base");
 var count = 0; // initialize a temp count variable to use with each sentence
-var flag = false; // checks if the previous button was pressed
 var count_prev = 0;
 var total = 0; // initialize a variable to hold the user total
 var title_element; // Title element
