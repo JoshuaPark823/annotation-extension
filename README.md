@@ -25,3 +25,6 @@
 
     - (Solution) Boolean flag that only injects the script once actually fixed the problem.
 
+### Example Usage:
+![Screenshot](./example_usage/sc_before.png)
+![Screenshot](./example_usage/sc_after.png)
