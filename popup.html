@@ -3,21 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href = "popup.css">
 
     <title>annotation-extension</title>
 </head>
-<body>
+<body id = "main-body">
 
     <div class="container">
-        <h2>Current Annotation Block</h2>
+        <h2 id = "annotation-title">Current Annotation Block</h2>
 
-        <div id = "user-count">Count : </div>
-        <div id = "display-count">0</div>
+        <h3 id = "count-text">Count : </h3>
+        <body id = "count-value">0</body>
 
     </div>
     <script src = "popup.js"></script>
-    <script src = "foreground.js"></script>
     
 </body>
 </html>
