@@ -2,6 +2,7 @@ console.log("Foreground Injected");
 
 // Set a variable that points to both buttons, [0] := previous, [1] := next
 var prev_next = document.getElementsByClassName("mat-focus-indicator sentence-button mat-icon-button mat-button-base");
+
 var count = 0; // initialize a temp count variable to use with each sentence
 var count_prev = 0;
 var total = 0; // initialize a variable to hold the user total
@@ -15,7 +16,6 @@ var tags_applied = 0; // current number of tags applied (updates anytime the DOM
  */
 function current_amount() {
 
-    // set the value of the title string DYNAMICALLY
     title_element = document.getElementsByClassName("title");
     title_string = document.getElementsByClassName("title")[0].textContent;
     
