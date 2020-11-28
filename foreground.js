@@ -12,7 +12,7 @@ var tags_applied = 0; // current number of tags applied (updates anytime the DOM
 
 /**
  * @param: none
- * @return: returns the current number of tags applied as an integer
+ * @return {integer}: Current number of tags applied as an integer
  */
 function current_amount() {
 
@@ -20,15 +20,6 @@ function current_amount() {
     title_string = document.getElementsByClassName("title")[0].textContent;
     
     return Number(title_string.substring(21,22)); 
-}
-
-/**
- * TODO: Implement method
- * @param count_input: new count for the popup to be updated to
- * @return: none
- */
-function display_count(count_input) {
-    
 }
 
 /**
@@ -54,7 +45,7 @@ document.getElementsByClassName("title")[0].addEventListener('DOMSubtreeModified
 /**
  * NEXT Event Listener
  */
-prev_next[1].addEventListener('click', function(e) {
+prev_next[1].addEventListener('click', () => {
 
     tags_before = 0; // set t_b = 0 because we should theoretically be on a new sentence
     
@@ -62,8 +53,14 @@ prev_next[1].addEventListener('click', function(e) {
     // There's probs a way to do this w the chrome.storage API but eh, this is faster
     total += count_prev;
 
-    // display_count(total); // update the count on the popup to the new total
     console.log("Updated Total: " + total);
+
+    // send the msg using runtime api
+    let message = {
+        text: total
+    };
+    chrome.runtime.sendMessage(message);
+
 });
 
 /**
@@ -73,10 +70,5 @@ prev_next[0].addEventListener('click', () => {
 
     // Just "cancel"" the last tags from count if user goes back (n-miscount if user pressed previous, then didn't press next)
     total -= count_prev;
-
-    console.log("Updated Total: " + total);
 });
-
-
-
 
