@@ -19,13 +19,18 @@ chrome.tabs.onActivated.addListener(tab => {
                 chrome.tabs.executeScript(null, {file : "./foreground.js"}, () => console.log("foreground injected"));
                 
                 // empty string to be changed
-                window.str = "";
+                var STORAGE = window.localStorage;
+                STORAGE.setItem('tags', 0); // init set it as 0
+                window.str = STORAGE.getItem('tags'); // set the str to be accessed as the storage val
 
                 // receive message from foreground script
                 chrome.runtime.onMessage.addListener(
                     function(request, sender, sendResponse) {
                         console.log(request);
-                        window.str = request.text;
+
+                        // update the annotations using localStorage API
+                        STORAGE.setItem('tags', request.text);
+                        window.str = STORAGE.getItem('tags'); 
                     }
                 );
 
@@ -35,4 +40,5 @@ chrome.tabs.onActivated.addListener(tab => {
         }
     });
 });
+
 
